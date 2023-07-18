@@ -90,7 +90,7 @@ class Sin(Transformation):
         return sin(self.inputs[0].value)
     
     def reverse(self, cotangent_information):
-        return cotangent_information * cos(self.inputs[0].value)
+        return [cos(self.inputs[0].value) * cotangent_information]
 
 class Cos(Transformation):
     def __init__(self, a, id = None) -> None:
@@ -100,7 +100,7 @@ class Cos(Transformation):
         return cos(self.inputs[0].value)
     
     def reverse(self, cotangent_information):
-        return -1 * cotangent_information * sin(self.inputs[0].value)
+        return [sin(self.inputs[0].value) * (-1 * cotangent_information)]
 
 class Graph:
     def __init__(self) -> None:
@@ -152,15 +152,7 @@ def node_div(self, other):
         raise Exception(f"Incompatible Argument \"{other}\"")
     return Divide(self, other)
 
-def node_sin(self):
-    return Sin(self)
-
-def node_cos(self):
-    return Cos(self)
-
 Node.__add__ = node_add
 Node.__mul__ = node_mul
 Node.__sub__ = node_sub
 Node.__div__ = node_div
-Node.sin = node_sin
-Node.cos = node_cos
