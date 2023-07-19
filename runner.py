@@ -1,7 +1,7 @@
 from auto_diff import *
 
 def main():
-    dag = Graph()
+    Graph()
 
     v_0 = Variable(2,'x')
     v_1 = Variable(5,'y')
