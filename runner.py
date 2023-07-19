@@ -10,9 +10,7 @@ def main():
     print("Forward Pass = ",forward_pass())
     backward_pass()
 
-    for node in dag.nodes:
-        if isinstance(node, Variable):
-            print(f"d/d{node.id} = ", node.gradient)
+    print(get_partials())
 
 if __name__ == "__main__":
     main()

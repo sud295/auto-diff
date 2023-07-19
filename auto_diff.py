@@ -240,3 +240,16 @@ Node.__add__ = node_add
 Node.__mul__ = node_mul
 Node.__sub__ = node_sub
 Node.__div__ = node_div
+
+def get_partials():
+    '''
+    Returns a list of all the partial derivatives of the input function
+    '''
+    partials = []
+    for node in graph.nodes:
+        if isinstance(node, Variable):
+            inner_list = []
+            inner_list.append(f"d/d{node.id}")
+            inner_list.append(node.gradient)
+            partials.append(inner_list)
+    return partials
