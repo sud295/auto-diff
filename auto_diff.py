@@ -128,7 +128,7 @@ class Divide(Transformation):
     
     # Use the quotient rule with respect to each input a and b
     def reverse(self, cotangent_information):
-        return cotangent_information/self.inputs[1].value, cotangent_information*self.inputs[0].value/(self.inputs[1].value ** 2)
+        return cotangent_information/self.inputs[1].value, -1 * cotangent_information*self.inputs[0].value/(self.inputs[1].value ** 2)
 
 class Sin(Transformation):
     def __init__(self, a, id = None) -> None:
@@ -142,7 +142,7 @@ class Sin(Transformation):
 
 class Cos(Transformation):
     def __init__(self, a, id = None) -> None:
-        super().__init__(a=a,b=None, type="Sin", id=id)
+        super().__init__(a=a,b=None, type="Cos", id=id)
 
     def forward(self):
         return cos(self.inputs[0].value)
@@ -159,6 +159,16 @@ class Log(Transformation):
     
     def reverse(self, cotangent_information):
         return [cotangent_information/self.inputs[0].value]
+
+class Power(Transformation):
+    def __init__(self, a, b, id = None) -> None:
+        super().__init__(a=a,b=b,type="Power", id=id)
+    
+    def forward(self):
+        return self.inputs[0].value ** self.inputs[1].value
+    
+    def reverse(self, adjoint):
+        return adjoint * self.inputs[1].value * (self.inputs[0].value ** (self.inputs[1].value - 1)), adjoint * log(self.inputs[0].value) * (self.inputs[0].value ** self.inputs[1].value)
     
 '''
 This is the definition of the graph that holds all the nodes.
@@ -236,10 +246,17 @@ def node_div(self, other):
         raise Exception(f"Incompatible Argument \"{other}\"")
     return Divide(self, other)
 
+def node_pow(self, other):
+    if not isinstance(other, Node):
+        raise Exception(f"Incompatible Argument \"{other}\"")
+    return Power(self, other)
+
 Node.__add__ = node_add
 Node.__mul__ = node_mul
 Node.__sub__ = node_sub
-Node.__div__ = node_div
+Node.__truediv__ = node_div
+Node.__pow__ = node_pow
+#wrapper for power
 
 def get_partials():
     '''
