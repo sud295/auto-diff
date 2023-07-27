@@ -1,5 +1,6 @@
 from auto_diff import *
 
+# Example of how to use the module
 def main():
     Graph()
 
