@@ -34,8 +34,8 @@ def calculate_partials(variables: dict, function: list[str]):
     for_function = {}
     for variable in variables:
         for_function[variable] = Variable(variables.get(variable),variable)
-    
-    output = eval(function, for_function)
+        
+    output = eval(function, None, for_function)
 
     backward_pass()
 
