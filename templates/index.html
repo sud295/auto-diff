@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Automatic Differentiation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <h1>Automatic Differentiation</h1>
@@ -19,7 +20,7 @@
     </form>
     {% if partials %}
         <h2>Partial Derivatives</h2>
-        <p>{{ partials }}</p>
+        <h3>{{ partials }}</h3>
     {% endif %}
 </body>
 </html>
