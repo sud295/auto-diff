@@ -18,3 +18,6 @@ class Scalar(Node):
 
         # Add each new Scalar to the directed acyclic graph
         Graph.add(self)
+    
+    def __repr__(self) -> str:
+        return str(self.id) + "=" + str(self.value) 

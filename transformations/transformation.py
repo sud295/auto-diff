@@ -32,3 +32,6 @@ class Transformation(Node):
     
     def reverse(self):
         pass
+
+    def __repr__(self) -> str:
+        return str(self.inputs)

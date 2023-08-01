@@ -56,3 +56,6 @@ def get_partials():
             inner_list.append(node.gradient)
             partials.append(inner_list)
     return partials
+
+def get_nodes():
+    return Graph.get_graph().nodes

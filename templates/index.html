@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automatic Differentiation</title>
+</head>
+<body>
+    <h1>Automatic Differentiation</h1>
+    <form method="post" action="/">
+        <label for="variables">Enter variables (comma-separated): </label>
+        <input type="text" name="variables" required>
+        <br>
+        <label for="eval_values">Enter values to evaluate at (comma-separated): </label>
+        <input type="text" name="eval_values" required>
+        <br>
+        <label for="function">Enter a function: </label>
+        <input type="text" name="function" required>
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+    {% if partials %}
+        <h2>Partial Derivatives</h2>
+        <p>{{ partials }}</p>
+    {% endif %}
+</body>
+</html>
