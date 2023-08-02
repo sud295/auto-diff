@@ -46,7 +46,8 @@ def calculate_partials(variables: dict, function: str):
     # Check if all symbols are allowed to prevent misuse of program
     for symbol in symbols:
         if symbol not in allowed_names:
-            return ValueError(f"'{symbol}' is not an allowed symbol.")
+            return ValueError(f"'{symbol}' is not an allowed symbol."), \
+            "Use \"Log\", \"Sin\", \"Cos\", \"Variable\", \"Constant\", \"Add\", \"Subtract\", \"Multiply\", \"Divide\", or any of the four operators."
         
     try:
         output = eval(function, None, for_function)
