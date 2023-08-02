@@ -52,14 +52,14 @@ def calculate_partials(variables: dict, function: str):
     try:
         output = eval(function, None, for_function)
     except:
-        return "That didn't work! Try again."
+        return "That didn't work! Try again.", ""
 
     forward_output = None
     try:
         forward_output = forward_pass()
         backward_pass()
     except:
-        return "That didn't work! Try again."
+        return "That didn't work! Try again.", ""
     
     partials = get_partials()
 
