@@ -8,13 +8,13 @@
     <h1>Automatic Differentiation</h1>
     <form method="post" action="/">
         <label for="variables">Enter variables (comma-separated): </label>
-        <input type="text" name="variables" required value = "x,y">
+        <input type="text" name="variables" required value = "x,y,z">
         <br>
         <label for="eval_values">Enter values to evaluate at (comma-separated): </label>
-        <input type="text" name="eval_values" required value = "2,5">
+        <input type="text" name="eval_values" required value = "2,5,7">
         <br>
         <label for="function">Enter a function: </label>
-        <input type="text" name="function" required value = "Log(x) + x*y - Sin(y)">
+        <input type="text" name="function" required value = "Log(x) + x*y - Sin(y) + z**Constant(2)">
         <br>
         <input type="submit" value="Calculate">
     </form>
@@ -22,7 +22,11 @@
         <h2>Function Output</h2>
         <h3>{{ forward }}</h3>
         <h2>Partial Derivatives</h2>
-        <h3>{{ partials }}</h3>
+        <h3>
+            {% for partial in partials.split(',') %}
+                {{ partial }}<br>
+            {% endfor %}
+        </h3>
     {% endif %}
 </body>
 </html>

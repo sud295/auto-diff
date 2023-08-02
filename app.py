@@ -33,6 +33,9 @@ def calculate_partials(variables: dict, function: str):
     allowed_names = {"Log", "Sin", "Cos", "Variable", "Constant", "Add", "Subtract", "Multiply", "Divide", "+", "-", "*", "/"}
     for i in range(97, 123):
         allowed_names.add(chr(i))
+    
+    for i in range(65, 91):
+        allowed_names.add(chr(i))
 
     Graph()
 
@@ -45,6 +48,11 @@ def calculate_partials(variables: dict, function: str):
     print(symbols)
     # Check if all symbols are allowed to prevent misuse of program
     for symbol in symbols:
+        try:
+            symbol = float(symbol)
+            continue
+        except:
+            pass
         if symbol not in allowed_names:
             return ValueError(f"'{symbol}' is not an allowed symbol."), \
             "Use \"Log\", \"Sin\", \"Cos\", \"Variable\", \"Constant\", \"Add\", \"Subtract\", \"Multiply\", \"Divide\", or any of the four operators."
