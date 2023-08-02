@@ -34,4 +34,4 @@ class Transformation(Node):
         pass
 
     def __repr__(self) -> str:
-        return str(self.inputs)
+        return self.id + "-> " + str(self.inputs)

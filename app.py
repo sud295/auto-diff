@@ -23,9 +23,9 @@ def index():
             except:
                 return render_template('index.html', partials="ERROR: Values must be numeric.")
         
-        partials = calculate_partials(variables, function)
+        partials, forward_output = calculate_partials(variables, function)
 
-        return render_template('index.html', partials=partials)
+        return render_template('index.html', partials=partials, forward=forward_output)
     
     return render_template('index.html')
 
@@ -42,6 +42,7 @@ def calculate_partials(variables: dict, function: str):
     
     symbols = re.findall(r'\b\w+\b', function)
 
+    print(symbols)
     # Check if all symbols are allowed to prevent misuse of program
     for symbol in symbols:
         if symbol not in allowed_names:
@@ -52,8 +53,13 @@ def calculate_partials(variables: dict, function: str):
     except:
         return "That didn't work! Try again."
 
-    backward_pass()
-
+    forward_output = None
+    try:
+        forward_output = forward_pass()
+        backward_pass()
+    except:
+        return "That didn't work! Try again."
+    
     partials = get_partials()
 
     out_str = ""
@@ -61,11 +67,11 @@ def calculate_partials(variables: dict, function: str):
         out_str += str(partial[0])
         out_str += "="
         out_str += str(partial[1])
-        out_str += "\n"
+        out_str += ", "
     
-    out_str = out_str[:-1]
+    out_str = out_str[:-2]
 
-    return out_str
+    return out_str, forward_output
 
 if __name__ == '__main__':
     app.run(debug=False)

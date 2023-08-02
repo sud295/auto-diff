@@ -10,7 +10,7 @@ def main():
 
     print("Forward Pass = ",forward_pass())
     backward_pass()
-
+    
     print(get_partials())
 
 if __name__ == "__main__":
