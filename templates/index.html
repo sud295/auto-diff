@@ -8,13 +8,13 @@
     <h1>Automatic Differentiation</h1>
     <form method="post" action="/">
         <label for="variables">Enter variables (comma-separated): </label>
-        <input type="text" name="variables" required>
+        <input type="text" name="variables" required value = "x,y">
         <br>
         <label for="eval_values">Enter values to evaluate at (comma-separated): </label>
-        <input type="text" name="eval_values" required>
+        <input type="text" name="eval_values" required value = "2,5">
         <br>
         <label for="function">Enter a function: </label>
-        <input type="text" name="function" required>
+        <input type="text" name="function" required value = "Log(x) + x*y - Sin(y)">
         <br>
         <input type="submit" value="Calculate">
     </form>
