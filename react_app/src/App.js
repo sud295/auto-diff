@@ -62,7 +62,7 @@ function App() {
     formData.append('eval_values', values);
     formData.append('function', function_str);
     
-    fetch("http://localhost:8000/", {
+    fetch("http://172.31.92.9:8000/", {
       method: "POST",
       body: formData,
     })
