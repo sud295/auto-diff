@@ -29,7 +29,7 @@ body {
   justify-content: center;
 }
 
-.AutoDiff {
+.Keypad {
   width: 100%;
   max-width: 60%;
   border-radius: 16px;
@@ -73,36 +73,67 @@ button:hover{
 
 .VariableInput{
   width: 100%;
-  max-width: 60%;
-  border-radius: 16px;
-  padding: 2%;
+  padding: 5%;
   background-color: rgb(199, 136, 255);
   text-align: right;
   font-family: 'Trebuchet MS';
   font-weight: bolder;
-  margin-bottom: 5%;
 }
 
 .ValueInput{
   width: 100%;
-  max-width: 60%;
-  border-radius: 16px;
-  padding: 2%;
+  padding: 5%;
   background-color: rgb(255, 136, 247);
   text-align: right;
   font-family: 'Trebuchet MS';
   font-weight: bolder;
-  margin-bottom: 7%;
 }
 
 .FunctionInput{
   width: 100%;
-  max-width: 60%;
-  border-radius: 16px;
-  padding: 2%;
-  background-color: rgb(255, 136, 186);
+  padding: 7%;
+  background-color: rgb(255, 136, 158);
   text-align: right;
   font-family: 'Trebuchet MS';
   font-weight: bolder;
+}
+
+.userEntries{
+  width: 100%;
+  max-width: 60%;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.8); 
+  backdrop-filter: blur(10px); 
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   margin-bottom: 5%;
+}
+
+.Outputs{
+  width: 100%;
+  max-width: 60%;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.8); 
+  backdrop-filter: blur(10px); 
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  margin-top: 5%;
+}
+
+.FuncOut{
+  width: 100%;
+  padding: 5%;
+  background-color: rgb(213, 255, 136);
+  text-align: right;
+  font-family: 'Trebuchet MS';
+  font-weight: bolder;
+}
+
+.PartOut{
+  width: 100%;
+  padding: 5%;
+  background-color: rgb(136, 255, 186);
+  text-align: right;
+  font-family: 'Trebuchet MS';
+  font-weight: bolder;
 }
