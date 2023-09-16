@@ -62,7 +62,7 @@ function App() {
     formData.append('eval_values', values);
     formData.append('function', function_str);
     
-    fetch("/partials", {
+    fetch("https://api.sisha.dev/", {
       method: "POST",
       body: formData,
     })
@@ -117,7 +117,7 @@ function App() {
           setFunc(func.slice(0, -1));
         }
       }
-      else if (key === "Shift"){
+      else if (key === "Shift" || key === "Meta" || key === " "){
         
       }
       else{
