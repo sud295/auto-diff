@@ -2,9 +2,9 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [variables, setVars] = useState("");
-  const [values, setVals] = useState("");
-  const [func, setFunc] = useState("");
+  const [variables, setVars] = useState("x,y");
+  const [values, setVals] = useState("2,5");
+  const [func, setFunc] = useState("Log(x)+x*y-Sin(y)");
   const [selectedInput, setSelectedInput] = useState("VariableInput"); 
   const [funcOut, setFuncOut] = useState("");
   const [partOut, setPartOut] = useState("");
@@ -78,16 +78,25 @@ function App() {
       if (variables.length === 0){
         setVars(value);
       }
-      else{
-        setVars(variables + ", " + value);
+      else if (value === ","){
+        setVars(variables + ", ");
       }
+      else{
+        //setVars(variables + ", " + value);
+        setVars(variables + value);
+      }
+
     } 
     else if (selectedInput === "ValueInput") {
       if (values.length === 0){
         setVals(value);
       }
+      else if (value === ","){
+        setVals(values + ", ");
+      }
       else{
-        setVals(values + ", " + value);
+        //setVals(values + ", " + value);
+        setVals(values + value);
       }
     } 
     else if (selectedInput === "FunctionInput") {
@@ -108,10 +117,20 @@ function App() {
       const key = event.key;
       if (key === "Backspace"){
         if (selectedInput === "VariableInput"){
-          setVars(variables.slice(0, -3));
+          if (variables.charAt(variables.length - 1) === ' '){
+            setVars(variables.slice(0, -2));
+          }
+          else{
+            setVars(variables.slice(0, -1));
+          }
         }
         else if (selectedInput === "ValueInput"){
-          setVals(values.slice(0, -3));
+          if (values.charAt(values.length - 1) === ' '){
+            setVals(values.slice(0, -2));
+          }
+          else{
+            setVals(values.slice(0, -1));
+          }
         }
         else{
           setFunc(func.slice(0, -1));
@@ -155,13 +174,13 @@ function App() {
     <div className="App">
       <div className='userEntries'>
         <div className='VariableInput' onClick={() => handleInputSelect("VariableInput")}>
-          {variables || "Enter Variables"}
+          {variables || "Click To Enter Variables (Comma Separated)"}
         </div>
         <div className='ValueInput' onClick={() => handleInputSelect("ValueInput")}>
-          {values || "Enter Values To Evaluate At"}
+          {values || "Click To Enter Values To Evaluate At (Comma Separated)"}
         </div>
         <div className='FunctionInput' onClick={() => handleInputSelect("FunctionInput")}>
-          {func || "Enter Function"}
+          {func || "Click To Enter Function"}
         </div>
       </div>
   
