@@ -98,9 +98,8 @@ def index():
         center_x, center_y = int(center_x), int(center_y)
         start_x, end_x = max(1, center_x-250), center_x+250
         start_y, end_y = max(1, center_y-250), center_y+250
-        #x_vals, y_vals = np.linspace(start_x, end_x, 1000), np.linspace(start_y, end_y, 1000)
 
-        num_points = 1000
+        num_points = 10000
         x_vals = [random.uniform(start_x, end_x) for _ in range(num_points)]
         y_vals = [random.uniform(start_y, end_y) for _ in range(num_points)]
 
@@ -114,10 +113,8 @@ def index():
             except:
                 break
 
-            print(variables)
             output, partials = get_function_outputs(variables, function)
 
-            print(partials)
             if not output or not partials:
                 x_vals = np.delete(x_vals, i)
                 y_vals = np.delete(y_vals, i)
@@ -130,14 +127,16 @@ def index():
         grads = np.array(grads)
         outputs = np.array(outputs)
 
-        print("h")
-        print(grads)
         x_grads = grads[:,0]
         y_grads = grads[:,1]
 
+        ref_point = np.array([0, 0, 0])
+        distances = np.linalg.norm(np.column_stack((x_vals, y_vals, outputs)) - ref_point, axis=1)
+        colormap = plt.cm.get_cmap('viridis')
+
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
-        ax.scatter(x_vals, y_vals, outputs)
+        ax.scatter(x_vals, y_vals, outputs, c=distances, cmap=colormap)
         ax.set_title('Input Function')
         plt.savefig("3d.png")
         

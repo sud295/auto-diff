@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
 function App() {
-  const [variables, setVars] = useState("x");
-  const [values, setVals] = useState("2");
-  const [func, setFunc] = useState("Log(x)+Sin(x)");
+  const [variables, setVars] = useState("x, y");
+  const [values, setVals] = useState("2, 5");
+  const [func, setFunc] = useState("Log(x)+x*y-Sin(y)");
   const [selectedInput, setSelectedInput] = useState("VariableInput"); 
   const [funcOut, setFuncOut] = useState("");
   const [partOut, setPartOut] = useState("");
@@ -229,7 +229,15 @@ function App() {
           setFunc(func.slice(0, -1));
         }
       }
-      else if (key === "Shift" || key === "Meta" || key === " " || key === "-"){
+      else if (key === "-"){
+        if (selectedInput === "VariableInput" || selectedInput === "ValueInput"){
+
+        }
+        else{
+          handleButtonClick(key);
+        }
+      }
+      else if (key === "Shift" || key === "Meta" || key === " "){
         
       }
       else{
