@@ -226,7 +226,7 @@ function App() {
           setFunc(func.slice(0, -1));
         }
       }
-      else if (key === "Shift" || key === "Meta" || key === " "){
+      else if (key === "Shift" || key === "Meta" || key === " " || key === "-"){
         
       }
       else{
