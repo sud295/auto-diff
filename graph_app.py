@@ -47,12 +47,17 @@ def index():
         output_arr = []
 
         partial_arr = []
-        for val in val_arr:
+        for i, val in enumerate(val_arr):
             variables = {}
             variables[variables_str] = val
             output, partial = get_function_outputs(variables, function)
+
+            if not output or not partial:
+                val_arr = np.delete(val_arr, i)
+                continue
+
             partial = partial[0]
-        
+
             output_arr.append(output)
             partial_arr.append(partial)
 

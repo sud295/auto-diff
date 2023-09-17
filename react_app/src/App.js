@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
 function App() {
-  const [variables, setVars] = useState("x,y");
-  const [values, setVals] = useState("2,5");
-  const [func, setFunc] = useState("Log(x)+x*y-Sin(y)");
+  const [variables, setVars] = useState("x");
+  const [values, setVals] = useState("2");
+  const [func, setFunc] = useState("Log(x)+Sin(x)");
   const [selectedInput, setSelectedInput] = useState("VariableInput"); 
   const [funcOut, setFuncOut] = useState("");
   const [partOut, setPartOut] = useState("");
@@ -26,6 +26,14 @@ function App() {
     }
     let function_str = "";
     let visited_indices = [];
+    let dimensions = "";
+
+    if (variables.length == 1){
+      dimensions = "2";
+    }
+    else{
+      return;
+    }
 
     for (let i = 0; i < func.length; i++) {
       let element = func[i];
@@ -62,9 +70,9 @@ function App() {
     formData.append('variables', variables);
     formData.append('eval_values', values);
     formData.append('function', function_str);
-    formData.append('dims', "2")
+    formData.append('dims', dimensions)
     
-    fetch("http://127.0.0.1:8000/", {
+    fetch("http://127.0.0.1:8000", {
       method: "POST",
       body: formData,
     })
@@ -307,7 +315,7 @@ function App() {
         <div className="calculate">
           <button onClick={handleCalculateClick}>Calculate</button>
           <button onClick={handleClearClick}>Clear</button>
-          <button onClick={handleGraphClick}>Graph</button>
+          <button onClick={handleGraphClick}>Graph (2D Only)</button>
         </div>
       </div>
 
