@@ -72,7 +72,7 @@ function App() {
     formData.append('function', function_str);
     formData.append('dims', dimensions)
     
-    fetch("http://127.0.0.1:8000", {
+    fetch("https://graph.sisha.dev", {
       method: "POST",
       body: formData,
     })
