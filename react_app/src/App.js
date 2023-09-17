@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 
 function App() {
   const [variables, setVars] = useState("x,y");
@@ -12,6 +13,81 @@ function App() {
   const handleInputSelect = (inputType) => {
     setSelectedInput(inputType);
   };
+
+  const handleGraphClick = () => {
+    if (variables.length === 0){
+      return;
+    }
+    if (values.length === 0){
+      return;
+    }
+    if (func.length === 0){
+      return;
+    }
+    let function_str = "";
+    let visited_indices = [];
+
+    for (let i = 0; i < func.length; i++) {
+      let element = func[i];
+
+      if (visited_indices.includes(i)) {
+        continue;
+      }
+
+      if (element === "^") {
+        function_str += "**";
+      } 
+      else if (!isNaN(element)) {
+        let total_num = element;
+
+        for (let j = i + 1; j < func.length; j++) {
+          visited_indices.push(j);
+
+          if (!isNaN(func[j])) {
+            total_num += func[j];
+          } else {
+            visited_indices.pop();
+            break;
+          }
+        }
+
+        function_str += `Constant(${total_num})`;
+      }
+      else {
+        function_str += element;
+      }
+    }
+  
+    const formData = new FormData();
+    formData.append('variables', variables);
+    formData.append('eval_values', values);
+    formData.append('function', function_str);
+    formData.append('dims', "2")
+    
+    fetch("http://127.0.0.1:8000/", {
+      method: "POST",
+      body: formData,
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+      const imageUrl = URL.createObjectURL(blob);
+      const imageElement = document.createElement('img');
+      imageElement.src = imageUrl;
+      
+      const imageContainer = document.getElementById('imageContainer');
+
+      while (imageContainer.firstChild) {
+        imageContainer.removeChild(imageContainer.firstChild);
+      }
+
+      imageContainer.classList.add('image-container');
+
+      imageContainer.appendChild(imageElement);
+    })
+    .catch((error) => {
+      console.error("Error loading the image:", error);
+    });
+  }
 
   const handleCalculateClick = () => {
     if (variables.length === 0){
@@ -112,6 +188,12 @@ function App() {
     setPartOut("");
   };
 
+  const [activeGroup, setActiveGroup] = useState('Operators');
+
+  const handleGroupChange = (group) => {
+    setActiveGroup(group);
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       const key = event.key;
@@ -170,6 +252,14 @@ function App() {
     return variables;
   }
 
+  if (isMobile) {
+    return (
+      <div>
+        <p>This application is not available on mobile devices.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <div className='userEntries'>
@@ -185,27 +275,39 @@ function App() {
       </div>
   
       <div className="Keypad">
-        <div className="Operators">
-          <button onClick={() => handleButtonClick('Log')}>Log</button>
-          <button onClick={() => handleButtonClick('Sin')}>Sin</button>
-          <button onClick={() => handleButtonClick('Cos')}>Cos</button>
-          <button onClick={() => handleButtonClick('+')}>+</button>
-          <button onClick={() => handleButtonClick('-')}>-</button>
-          <button onClick={() => handleButtonClick('/')}>/</button>
-          <button onClick={() => handleButtonClick('*')}>*</button>
-          <button onClick={() => handleButtonClick('^')}>^</button>
-          <button onClick={() => handleButtonClick('(')}>(</button>
-          <button onClick={() => handleButtonClick(')')}>)</button>
+        <div className='GroupSelector'>
+          <button onClick={() => handleGroupChange('Digits')}>Digits</button>
+          <button onClick={() => handleGroupChange('Operators')}>Operators</button>
+          <button onClick={() => handleGroupChange('Variables')}>Variables</button>
         </div>
-        <div className="Numbers">
-          {importNumbers()}
-        </div>
-        <div className="Variables">
-          {importVariables()}
-        </div>
+        {activeGroup === 'Operators' && (
+          <div className="Operators">
+            <button onClick={() => handleButtonClick('Log')}>Log</button>
+            <button onClick={() => handleButtonClick('Sin')}>Sin</button>
+            <button onClick={() => handleButtonClick('Cos')}>Cos</button>
+            <button onClick={() => handleButtonClick('+')}>+</button>
+            <button onClick={() => handleButtonClick('-')}>-</button>
+            <button onClick={() => handleButtonClick('/')}>/</button>
+            <button onClick={() => handleButtonClick('*')}>*</button>
+            <button onClick={() => handleButtonClick('^')}>^</button>
+            <button onClick={() => handleButtonClick('(')}>(</button>
+            <button onClick={() => handleButtonClick(')')}>)</button>
+          </div>
+        )}
+        {activeGroup === 'Digits' && (
+          <div className="Numbers">
+            {importNumbers()}
+          </div>
+        )}
+        {activeGroup === 'Variables' && (
+          <div className="Variables">
+            {importVariables()}
+          </div>
+        )}
         <div className="calculate">
           <button onClick={handleCalculateClick}>Calculate</button>
           <button onClick={handleClearClick}>Clear</button>
+          <button onClick={handleGraphClick}>Graph</button>
         </div>
       </div>
 
@@ -216,6 +318,7 @@ function App() {
         <div className='PartOut'>
           {partOut || "Partial Derivatives"}
         </div>
+        <div id="imageContainer"></div>
       </div>
     </div>
   );

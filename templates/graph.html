@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automatic Differentiation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Automatic Differentiation</h1>
+    <form method="post" action="/" target="_blank">
+        <label for="variables">Enter variables (comma-separated): </label>
+        <input type="text" name="variables" required value = "x">
+        <br>
+        <label for="eval_values">Enter values to evaluate at (comma-separated): </label>
+        <input type="text" name="eval_values" required value = "2">
+        <br>
+        <label for="function">Enter a function: </label>
+        <input type="text" name="function" required value = "x">
+        <br>
+        <label for="function">Enter a dimensions: </label>
+        <input type="text" name="dims" required value = "2">
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+    {% if partials %}
+        <h2>Function Output</h2>
+        <h3>{{ forward }}</h3>
+        <h2>Partial Derivatives</h2>
+        <h3>
+            {% for partial in partials.split(',') %}
+                {{ partial }}<br>
+            {% endfor %}
+        </h3>
+    {% endif %}
+</body>
+</html>
