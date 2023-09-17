@@ -67,10 +67,12 @@ def index():
         partial_arr = np.array(partial_arr)
 
         forward_fig, forward_ax = plt.subplots()
-        forward_ax.plot(val_arr, output_arr)
+        forward_ax.plot(val_arr, output_arr, c='b')
+        forward_ax.set_title("Input Function")
 
         partial_fig, partial_ax = plt.subplots()
-        partial_ax.plot(val_arr, partial_arr)
+        partial_ax.plot(val_arr, partial_arr, c='b')
+        partial_ax.set_title("First Derivative")
 
         forward_fig.savefig("forward.png")
         partial_fig.savefig("partial.png")

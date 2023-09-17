@@ -197,6 +197,11 @@ function App() {
     setVars("");
     setFuncOut("");
     setPartOut("");
+
+    const imageContainer = document.getElementById('imageContainer');
+    while (imageContainer.firstChild) {
+      imageContainer.removeChild(imageContainer.firstChild);
+    }
   };
 
   const [activeGroup, setActiveGroup] = useState('Operators');
