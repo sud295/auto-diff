@@ -31,6 +31,9 @@ function App() {
     if (variables.length == 1){
       dimensions = "2";
     }
+    else if (variables.length == 4){
+      dimensions = "3";
+    }
     else{
       return;
     }
@@ -315,7 +318,7 @@ function App() {
         <div className="calculate">
           <button onClick={handleCalculateClick}>Calculate</button>
           <button onClick={handleClearClick}>Clear</button>
-          <button onClick={handleGraphClick}>Graph (2D Only)</button>
+          <button onClick={handleGraphClick}>Graph (1, 2 Variables)</button>
         </div>
       </div>
 

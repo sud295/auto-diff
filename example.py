@@ -7,7 +7,7 @@ def main():
     v_0 = Variable(2,'x')
     # v_1 = Variable(5,'y')
     # v_2 = Log(v_0) + v_0*v_1 - Sin(v_1)
-    v_2 = Log(v_0)**Constant(2)
+    v_2 = v_0**Constant(2)
 
     print("Forward Pass = ",forward_pass())
     backward_pass()
